@@ -1,39 +1,37 @@
-function buscar(url){
-    $.ajaxSetup({
-        url: url,
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          //"Authentication": "bearer 3d16feb7c09884d1f8a330fd90fb233c3982048a",
-          "Content-Type": "application/json"
-        },
-        crossDomain: true,
-        method: "GET",
-    });
-    $.ajax({
-        url: url,
-      })
-      .done(function(data) {
-        console.log(data);
-      })
-      .fail(function() {
-        console.log("error");
-      })
+const API = "http://localhost:8000/api/v1/produtos";
+
+let produtos = null;
+
+const getProdutos = async () =>{
+  const res = await fetch(API);
+  const data = await res.json();
+  return data;
 }
 
-function buscarElementos(url){
-    let request = new XMLHttpRequest();
-    request.open("GET", url, true);
-    request.withCredentials = true;
-    request.send();
-    return request.response;
+function listar(resultados){
+  resultados.forEach(prod => {
+    linha = document.createElement("tr");
+    coluna1 = document.createElement("td");
+    textocol1 = document.createTextNode(prod.nome);
+    coluna1.appendChild(textocol1);
+    coluna2 = document.createElement("td");
+    textocol2 = document.createTextNode(prod.preco);
+    coluna2.appendChild(textocol2);
+    linha.appendChild(coluna1);
+    linha.appendChild(coluna2);
+    conteudo.appendChild(linha)
+  });
 }
 
-function montarLinha(dados){
 
-}
 
-function main(){
-    console.log(buscar("http://127.0.0.1:8000/api/v1/produtos"));
-}
-
-main();
+window.addEventListener("load", function(){
+  getProdutos()
+  .then((meuJson) =>{
+    //console.log(meuJson.results);
+    listar(meuJson.results);
+  })
+  .catch((erro)=>{
+    console.error('Opa! não foi dessa vez! ', erro.message);
+  });
+})
