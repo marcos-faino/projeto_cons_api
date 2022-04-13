@@ -5,38 +5,70 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Consumindo APIRest Django</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src='main.js' async></script>
     <style>
+        html, body{
+            margin: 0 auto;
+            height: 100vh;
+
+        }
         #container{
             width: 70vw;
             margin: 1em auto;
         }
 
-        #conteudo{
+        #tabela{
             background-color:rgb(238, 238, 202);
         }
         h1,h3{
             text-align: center;
         }
-        #conteudo{
+        #tabela{
             border: 2px solid black;
             border-collapse: collapse;
             width: 70%;
         }
 
-        #conteudo td{
+        #tabela td, #tabela th{
             border: 2px solid black;
+        }
+        #sobre{
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            opacity: 0;
+            position: absolute;
+            z-index: -100;
+        }
+        #img{
+            position: absolute;
+            top: 45%;
+            left: 45%;
         }
     </style>
 </head>
 <body>
+    <div id="sobre">
+        <p id="img"><img src="imagens/girar.gif" alt="imagem de centro"></p>
+    </div>
     <div id=container>
         <h1>Minha Loja</h1>
         <h3 id="titulo">Titulo</h3>
-        <table id=conteudo>
-
+        <table id=tabela>
+            <thead>
+                <tr>
+                    <th>#Id</th>
+                    <th>Nome</th>
+                    <th>Preço</th>
+                </tr>
+            </thead>
+            <tbody id="conteudo">
+            </tbody>
         </table>
+        <div>
+            <button id="anterior"><=</button> &nbsp; &nbsp;
+            <button id="posterior">=></button>
+        </div>
     </div>
 </body>
 </html>
